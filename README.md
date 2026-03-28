@@ -68,7 +68,7 @@ I have included an **Interactive Inference UI** at the end of the notebook. User
 ### Interactive UI Example
 ![Interactive Analysis](./outputs/interactive_sample.png)
 
-> **Reference:** Inspired by *“Artificial intelligence for human gunshot wound classification”*, **Journal of Pathology Informatics (2024)**. This project enhances those methodologies with modern SOTA architectures and forensic-centric cropping.
+> **Reference:** *“Artificial intelligence for human gunshot wound classification”*, **Journal of Pathology Informatics (2024)**. This project enhances those methodologies with modern SOTA architectures and forensic-centric cropping.
 
 ---
 
