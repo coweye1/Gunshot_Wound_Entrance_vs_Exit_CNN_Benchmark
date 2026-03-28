@@ -1,42 +1,62 @@
-# 🩸 Forensic Gunshot Wound Classification using Deep Learning
+# 🩸 Forensic Gunshot Wound Classification: A Multi-Model CNN Benchmark
 
-This project implements a deep learning pipeline to classify **Gunshot Entrance vs. Exit wounds**, a critical task in forensic pathology. We benchmarked three state-of-the-art architectures and utilized **Grad-CAM** to ensure the model focuses on medically relevant features rather than background artifacts.
+## 🩺 1. Problem Definition & Objectives
+Distinguishing between **Entrance** and **Exit** gunshot wounds is a fundamental yet complex task in forensic pathology, essential for reconstructing shooting distances and trajectories. This project aims to develop a high-precision deep learning pipeline to assist forensic pathologists in identifying these wounds objectively.
 
-## 🚀 Key Features
-- **Multi-Model Benchmarking:** Comparison between ResNet50, EfficientNet-B0, and ConvNeXt-Tiny.
-- **Forensic-Centric Preprocessing:** Applied **Center-Focus Cropping** (224x224) to mimic a pathologist's concentrated observation of the wound area.
-- **Class Imbalance Handling:** Implemented **Weighted Cross-Entropy Loss** to improve detection sensitivity for Exit wounds (minority class).
-- **Explainable AI (XAI):** Integrated **Grad-CAM** visualization to verify that the model prioritizes morphological features like the abrasion collar and skin tearing.
+By benchmarking **ResNet50**, **EfficientNet-B0**, and **ConvNeXt-Tiny**, this study identifies the optimal architecture for capturing subtle morphological markers—such as abrasion collars and radial skin tears—providing a robust "second-opinion" tool for forensic documentation.
 
-## 📊 Performance Results
-The **ConvNeXt-Tiny** model achieved the highest overall accuracy and demonstrated superior reliability in distinguishing complex wound patterns.
+## 📊 2. Dataset Specifications
+The model was trained and evaluated using the **FDCPUnBGunshotDB**, a specialized forensic dataset provided by the University of Brasília.
+
+* **Dataset Source:** [FDCPUnBGunshotDB GitHub](https://github.com/pedrogarciafreitas/FDCPUnBGunshotDB)
+* **Classes & Distribution:**
+  - **Entrance Wounds:** 1,883 images (Class 0)
+  - **Exit Wounds:** 671 images (Class 1)
+* **Forensic-Centric Preprocessing:** - **Center-Focus Strategy:** Implemented a **CenterCrop (224x224)** approach to focus strictly on the wound's central morphology, mirroring a pathologist's concentrated observation.
+  - **Imbalance Handling:** Utilized **Weighted Cross-Entropy Loss** (Ratio 1:2.8) to ensure high sensitivity for the minority class (Exit wounds).
+
+## 🚀 3. Key Technical Features
+* **Multi-Model Benchmarking:** Comparative study of three state-of-the-art CNNs using transfer learning.
+* **Explainable AI (XAI):** Integrated **Grad-CAM** to verify that the models prioritize clinically relevant features (e.g., marginal abrasion) rather than background artifacts like medical scales or grid patterns.
+* **Hardware:** Optimized for training on **Google Colab L4 GPU** environments.
+
+## 📈 4. Performance Metrics (Benchmark Results)
+The **ConvNeXt-Tiny** model achieved superior performance, demonstrating high reliability for forensic application with an accuracy of **91.9%**.
 
 | Model | Accuracy | Entrance F1-Score | Exit F1-Score |
 | :--- | :---: | :---: | :---: |
 | ResNet50 | 87% | 0.91 | 0.75 |
 | EfficientNet-B0 | 84% | 0.89 | 0.70 |
-| **ConvNeXt-Tiny** | **92%** | **0.95** | **0.84** |
+| **ConvNeXt-Tiny** | **91.9%** | **0.95** | **0.84** |
 
-### Confusion Matrices
-The following matrices illustrate the classification performance across all three models. ConvNeXt-Tiny shows a significant reduction in false negatives for Exit wounds.
-
+### Visual Analysis
+#### A. Confusion Matrix Comparison
+The following matrices illustrate the classification performance across all models.
 | ResNet50 | EfficientNet-B0 | ConvNeXt-Tiny (Best) |
 | :---: | :---: | :---: |
 | ![ResNet50 CM](outputs/CM_resnet50.png) | ![EfficientNet CM](outputs/CM_efficientnet_b0.png) | ![ConvNeXt CM](outputs/CM_convnext_tiny.png) |
 
-## 🔍 Visual Analysis (Grad-CAM)
-We used Grad-CAM to validate the model's decision-making process. 
-- **Successful Case:** The model correctly identifies the **marginal abrasion** and **soot patterns** (if present) for Entrance wounds.
-- **Robustness:** ConvNeXt-Tiny showed the highest resilience against background noise such as medical rulers or grid-patterned scales.
+#### B. Model Interpretability (Grad-CAM Comparison)
+We verified the models' focus using Grad-CAM. Successful cases show concentrated attention on the **wound margin** and **skin tearing patterns**.
+| ResNet50 Focus | EfficientNet-B0 Focus | ConvNeXt-Tiny Focus |
+| :---: | :---: | :---: |
+| ![ResNet50 GC](outputs/resnet50_Grad_CAM.png) | ![EfficientNet GC](outputs/efficientnet_b0_Grad_CAM.png) | ![ConvNeXt GC](outputs/convnext_tiny_Grad_CAM.png) |
 
-*(Tip: Upload your best Grad-CAM image to the outputs folder and link it here)*
-![Grad-CAM Sample](outputs/best_gradcam_sample.png)
+---
 
-## 🛠️ Tech Stack
-- **Framework:** PyTorch, Timm (PyTorch Image Models)
-- **Visualization:** Grad-CAM (pytorch-grad-cam), Matplotlib, Seaborn
-- **Environment:** Google Colab (L4 GPU)
-- **Metrics:** Scikit-learn (Confusion Matrix, Classification Report)
+## 🔍 Interactive Forensic Inference Tool
+I have included an **Interactive Inference UI** at the end of the notebook. Users can select a model and upload custom gunshot images to receive real-time classification and Grad-CAM visualization.
 
-## ⚖️ Disclaimer
-This project is for academic and research purposes only. It is intended to assist forensic professionals and should not be used as a standalone diagnostic tool in legal or clinical settings.
+### Multi-Model Analysis Example
+![Interactive Analysis](./outputs/interactive_sample.png)
+
+> **Reference:** Inspired by *“Artificial intelligence for human gunshot wound classification”*, **Journal of Pathology Informatics (2024)**. This project enhances those methodologies with modern SOTA architectures and forensic-centric cropping.
+
+---
+
+## 🧑‍⚕️ About the Author
+**Hee Jae Ryu (HEE JAE RYU), MD**
+* **Pathology Residency Applicant (2026 Match)**
+* **MD, Chungbuk National University College of Medicine**
+* **Content Creator at 'CowEye' (1.68M+ Subscribers)**
+* **Primary Interests:** Digital Pathology, Forensic Science, and AI-driven Diagnostics
