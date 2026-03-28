@@ -12,12 +12,12 @@ The model was trained and evaluated using the **FDCPUnBGunshotDB**, a specialize
 * **Classes & Distribution:**
   - **Entrance Wounds:** 1,883 images (Class 0)
   - **Exit Wounds:** 671 images (Class 1)
-* **Forensic-Centric Preprocessing:** - **Center-Focus Strategy:** Implemented a **CenterCrop (224x224)** approach to focus strictly on the wound's central morphology, mirroring a pathologist's concentrated observation.
+* **Forensic-Centric Preprocessing:** - **Center-Focus Strategy:** Implemented a **CenterCrop (224x224)** approach to focus strictly on the wound's central morphology.
   - **Imbalance Handling:** Utilized **Weighted Cross-Entropy Loss** (Ratio 1:2.8) to ensure high sensitivity for the minority class (Exit wounds).
 
 ## 🚀 3. Key Technical Features
 * **Multi-Model Benchmarking:** Comparative study of three state-of-the-art CNNs using transfer learning.
-* **Explainable AI (XAI):** Integrated **Grad-CAM** to verify that the models prioritize clinically relevant features (e.g., marginal abrasion) rather than background artifacts like medical scales or grid patterns.
+* **Explainable AI (XAI):** Integrated **Grad-CAM** to verify that the models prioritize clinically relevant features (e.g., marginal abrasion) rather than background artifacts.
 * **Hardware:** Optimized for training on **Google Colab L4 GPU** environments.
 
 ## 📈 4. Performance Metrics (Benchmark Results)
@@ -29,25 +29,42 @@ The **ConvNeXt-Tiny** model achieved superior performance, demonstrating high re
 | EfficientNet-B0 | 84% | 0.89 | 0.70 |
 | **ConvNeXt-Tiny** | **91.9%** | **0.95** | **0.84** |
 
-### Visual Analysis
-#### A. Confusion Matrix Comparison
-The following matrices illustrate the classification performance across all models.
-| ResNet50 | EfficientNet-B0 | ConvNeXt-Tiny (Best) |
-| :---: | :---: | :---: |
-| ![ResNet50 CM](outputs/CM_resnet50.png) | ![EfficientNet CM](outputs/CM_efficientnet_b0.png) | ![ConvNeXt CM](outputs/CM_convnext_tiny.png) |
+---
 
-#### B. Model Interpretability (Grad-CAM Comparison)
+## 🔍 Visual Analysis Comparison
+
+### A. Confusion Matrix (CM) Results
+The following matrices illustrate the classification performance. ConvNeXt-Tiny shows the highest reliability in correctly identifying Exit wounds.
+
+#### 1. ResNet50 Confusion Matrix
+![ResNet50 CM](outputs/CM_resnet50.png)
+
+#### 2. EfficientNet-B0 Confusion Matrix
+![EfficientNet CM](outputs/CM_efficientnet_b0.png)
+
+#### 3. ConvNeXt-Tiny Confusion Matrix (Best)
+![ConvNeXt CM](outputs/CM_convnext_tiny.png)
+
+---
+
+### B. Model Interpretability (Grad-CAM)
 We verified the models' focus using Grad-CAM. Successful cases show concentrated attention on the **wound margin** and **skin tearing patterns**.
-| ResNet50 Focus | EfficientNet-B0 Focus | ConvNeXt-Tiny Focus |
-| :---: | :---: | :---: |
-| ![ResNet50 GC](outputs/resnet50_Grad_CAM.png) | ![EfficientNet GC](outputs/efficientnet_b0_Grad_CAM.png) | ![ConvNeXt GC](outputs/convnext_tiny_Grad_CAM.png) |
+
+#### 1. ResNet50 Focus Analysis
+![ResNet50 GradCAM](outputs/resnet50_Grad_CAM.png)
+
+#### 2. EfficientNet-B0 Focus Analysis
+![EfficientNet GradCAM](outputs/efficientnet_b0_Grad_CAM.png)
+
+#### 3. ConvNeXt-Tiny Focus Analysis (Superior Robustness)
+![ConvNeXt GradCAM](outputs/convnext_tiny_Grad_CAM.png)
 
 ---
 
 ## 🔍 Interactive Forensic Inference Tool
 I have included an **Interactive Inference UI** at the end of the notebook. Users can select a model and upload custom gunshot images to receive real-time classification and Grad-CAM visualization.
 
-### Multi-Model Analysis Example
+### Interactive UI Example
 ![Interactive Analysis](./outputs/interactive_sample.png)
 
 > **Reference:** Inspired by *“Artificial intelligence for human gunshot wound classification”*, **Journal of Pathology Informatics (2024)**. This project enhances those methodologies with modern SOTA architectures and forensic-centric cropping.
