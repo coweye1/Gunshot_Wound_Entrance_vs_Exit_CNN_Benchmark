@@ -16,6 +16,7 @@ The model was trained and evaluated using the **FDCPUnBGunshotDB**, a specialize
   - **Imbalance Handling:** Utilized **Weighted Cross-Entropy Loss** (Ratio 1:2.8) to ensure high sensitivity for the minority class (Exit wounds).
 
 ## 🚀 3. Key Technical Features
+* **Automated Data Pipeline:** Custom **`preprocess.py`** script with a **GUI** to efficiently organize and label raw forensic data from diverse sources.
 * **Multi-Model Benchmarking:** Comparative study of three state-of-the-art CNNs using transfer learning.
 * **Explainable AI (XAI):** Integrated **Grad-CAM** to verify that the models prioritize clinically relevant features (e.g., marginal abrasion) rather than background artifacts.
 * **Hardware:** Optimized for training on **Google Colab L4 GPU** environments.
